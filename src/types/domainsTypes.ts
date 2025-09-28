@@ -126,3 +126,38 @@ export interface DnssecKeyPayload {
     public_key: string;
     type: "none" | "zsk" | "ksk";
 }
+
+export interface WebRedirectionPayload {
+    host: string;
+    override: boolean;
+    protocol: "http" | "https" | "httpsonly";
+    type: "cloak" | "http301" | "http302";
+    url: string;
+}
+
+export interface WebRedirectionUpdatePayload {
+    override?: boolean;
+    protocol?: "http" | "https" | "httpsonly";
+    type?: "cloak" | "http301" | "http302";
+    url?: string;
+}
+
+export interface TransferInDomainPayload {
+    fqdn: string;
+    owner: Persona;
+    admin?: Persona;
+    authinfo?: string;
+    bill?: Persona;
+    change_owner?: boolean;
+    currency?: "EUR" | "USD" | "GBP" | "TWD" | "CNY";
+    duration?: 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10;
+    enforce_premium?: boolean;
+    extra_parameters?: Record<string, any>; // cf. documentation : https://api.gandi.net/docs/domains/#appendix-Domain-Extra-Parameters
+    mailbox_optin?: boolean; // default: true
+    nameservers?: string[];
+    nameservers_ips?: Record<string, string[]>;
+    price?: number;
+    resellee_id?: string;
+    tech?: Persona;
+    template_id?: string;
+}

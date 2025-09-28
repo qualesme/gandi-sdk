@@ -7,7 +7,10 @@ import {
     DomainAvailabilityPayload,
     DomainContacts,
     LightPersona,
-    ListDomainsPayload
+    ListDomainsPayload,
+    TransferInDomainPayload,
+    WebRedirectionPayload,
+    WebRedirectionUpdatePayload
 } from "../types/domainsTypes";
 import {PaginationQS} from "../types/Utils";
 
@@ -231,5 +234,117 @@ export class DomainsResource {
         );
     }
 
+    getDomainTags(domain: string) {
+        return this.client.get(`/domain/domains/${encodeURIComponent(domain)}/tags`);
+    }
+
+    attachTagToDomain(domain: string, tag: string) {
+        return this.client.post(`/domain/domains/${encodeURIComponent(domain)}/tags`, {tag});
+    }
+
+    updateAllTagsForDomain(domain: string, tags: string[]) {
+        return this.client.put(`/domain/domains/${encodeURIComponent(domain)}/tags`, {tags});
+    }
+
+    updateSomeTagsForDomain(domain: string, add: string[], remove: string[]) {
+        return this.client.patch(`/domain/domains/${encodeURIComponent(domain)}/tags`, {add, remove});
+    }
+
+    removeAllTagsFromDomain(domain: string) {
+        return this.client.delete(`/domain/domains/${encodeURIComponent(domain)}/tags`);
+    }
+
+    acceptOrDeclineDomainTransfer(domain: string, accept: boolean, authInfo: string) {
+        return this.client.post(
+            `/domain/domains/${encodeURIComponent(domain)}/transferout`,
+            {accept, authInfo},
+        );
+    }
+
+    listWebRedirections(domain: string, opts?: PaginationQS, getAsCsv = false) {
+        const headers: Record<string, string> = {};
+        if (getAsCsv) headers.Accept = 'text/csv';
+        return this.client.get(`/domain/domains/${encodeURIComponent(domain)}/webredirs`, opts, headers);
+    }
+
+    createWebRedirection(domain: string, opts: WebRedirectionPayload, qs?: PaginationQS) {
+        return this.client.post(
+            `/domain/domains/${encodeURIComponent(domain)}/webredirs`,
+            opts,
+            qs,
+        );
+    }
+
+    getWebRedirectionInfo(domain: string, host: string) {
+        return this.client.get(
+            `/domain/domains/${encodeURIComponent(domain)}/webredirs/${encodeURIComponent(host)}`,
+        );
+    }
+
+    updateWebRedirection(domain: string, name: string, opts: WebRedirectionUpdatePayload) {
+        return this.client.patch(
+            `/domain/domains/${encodeURIComponent(domain)}/webredirs/${encodeURIComponent(name)}`,
+            opts,
+        );
+    }
+
+    deleteWebRedirection(domain: string, host: string) {
+        return this.client.delete(
+            `/domain/domains/${encodeURIComponent(domain)}/webredirs/${encodeURIComponent(host)}`,
+        );
+    }
+
+    listAvailableTlds(opts?: { category?: string, page?: number, per_page?: number }) {
+        return this.client.get(`/domain/tlds`, opts);
+    }
+
+    getTldInfo(tld: string) {
+        return this.client.get(`/domain/tlds/${encodeURIComponent(tld)}`);
+    }
+
+    transferDomainToGandi(opts: TransferInDomainPayload, sharingId?: any, dryRun = false) {
+        const params: any = {};
+        const headers: any = {};
+        if (sharingId) params.sharing_id = sharingId;
+        if (dryRun) headers.dry_run = true;
+        return this.client.post(
+            `/domain/transferin`,
+            opts,
+            params,
+            headers
+        );
+    }
+
+    getTransferInStatus(domain: string) {
+        return this.client.get(`/domain/transferin/${encodeURIComponent(domain)}`);
+    }
+
+    relaunchTransferIn(domain: string) {
+        return this.client.put(`/domain/transferin/${encodeURIComponent(domain)}`);
+    }
+
+    updateAuthInfo(domain: string, authinfo: string, sharingId?: any) {
+        const params: any = {};
+        if (sharingId) params.sharing_id = sharingId;
+        return this.client.put(
+            `/domain/transferin/${encodeURIComponent(domain)}/authinfo`,
+            {authinfo},
+            params,
+        );
+    }
+
+    checkTransferAvailability(domain: string, authinfo: string) {
+        return this.client.post(
+            `/domain/transferin/${encodeURIComponent(domain)}/available`,
+            {authinfo},
+        );
+    }
+
+    resendTransferFOA(domain: string, email: string) {
+        return this.client.post(
+            `/domain/transferin/${encodeURIComponent(domain)}/foa`,
+            {email},
+        );
+    }
 
 }
