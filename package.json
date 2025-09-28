@@ -1,0 +1,50 @@
+{
+    "name": "@qualesme/gandi-sdk",
+    "version": "0.1.0",
+    "description": "Unofficial TypeScript SDK for the Gandi API",
+    "main": "dist/index.js",
+    "types": "dist/index.d.ts",
+    "scripts": {
+        "build": "npx rimraf dist && tsc",
+        "dev": "tsc --watch",
+        "format": "prettier src --write",
+        "lint": "eslint src package.json",
+        "lintfix": "eslint src package.json --fix",
+        "test": "vitest run",
+        "prepublishOnly": "npm run build && npm run lint -c .eslintrc.prepublish.js src package.json"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/qualesme/gandi-sdk.git"
+    },
+    "keywords": [
+        "sdk",
+        "gandi",
+        "api"
+    ],
+    "author": {
+        "name": "Quales",
+        "email": "contact-n8n@quales.me",
+        "url": "https://quales.me"
+    },
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/qualesme/gandi-sdk/issues"
+    },
+    "files": [
+        "dist"
+    ],
+    "homepage": "https://github.com/qualesme/gandi-sdk#readme",
+    "devDependencies": {
+        "@typescript-eslint/parser": "~8.32.0",
+        "eslint": "^8.57.0",
+        "eslint-plugin-n8n-nodes-base": "^1.16.3",
+        "prettier": "^3.5.3",
+        "typescript": "^5.8.2",
+        "vitest": "^2.0.5",
+        "ts-node": "^10.9.2"
+    },
+    "dependencies": {
+        "axios": "^1.7.4"
+    }
+}

@@ -1,0 +1,11 @@
+/.idea/
+/node_modules/
+env.ts
+
+.DS_Store
+.tmp
+tmp
+dist
+npm-debug.log*
+yarn.lock
+.vscode/launch.json
