@@ -213,7 +213,11 @@ export class DomainsResource {
 	restoreDomain(domain: string, body: any, sharingId?: any) {
 		const params: any = {};
 		if (sharingId) params.sharing_id = sharingId;
-		return this.client.post(`/domain/domains/${encodeURIComponent(domain)}/restore`, body, params);
+		return this.client.post(
+			`/domain/domains/${encodeURIComponent(domain)}/restore`,
+			body,
+			params,
+		);
 	}
 
 	transferLock(domain: string, lock: boolean) {
@@ -235,7 +239,10 @@ export class DomainsResource {
 	}
 
 	updateSomeTagsForDomain(domain: string, add: string[], remove: string[]) {
-		return this.client.patch(`/domain/domains/${encodeURIComponent(domain)}/tags`, { add, remove });
+		return this.client.patch(`/domain/domains/${encodeURIComponent(domain)}/tags`, {
+			add,
+			remove,
+		});
 	}
 
 	removeAllTagsFromDomain(domain: string) {
@@ -260,7 +267,11 @@ export class DomainsResource {
 	}
 
 	createWebRedirection(domain: string, opts: WebRedirectionPayload, qs?: PaginationQS) {
-		return this.client.post(`/domain/domains/${encodeURIComponent(domain)}/webredirs`, opts, qs);
+		return this.client.post(
+			`/domain/domains/${encodeURIComponent(domain)}/webredirs`,
+			opts,
+			qs,
+		);
 	}
 
 	getWebRedirectionInfo(domain: string, host: string) {

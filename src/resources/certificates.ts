@@ -8,8 +8,7 @@ import {
 } from '../types/certificateTypes';
 
 export class CertificatesResource {
-	constructor(private client: GandiClient) {
-	}
+	constructor(private client: GandiClient) {}
 
 	retrieveDCVParameters(opts?: DCVParametersFilters) {
 		return this.client.get(`/certificate/dcv_params`, opts);
@@ -57,6 +56,7 @@ export class CertificatesResource {
 			headers,
 		);
 	}
+
 	revokeCertificate(id: string, sharingId?: any) {
 		const params: any = {};
 		if (sharingId) params.sharing_id = sharingId;
@@ -92,7 +92,10 @@ export class CertificatesResource {
 	}
 
 	retrieveCertificateDCVParameters(id: string, ops: DCVParametersFilters) {
-		return this.client.post(`/certificate/issued-certs/${encodeURIComponent(id)}/dcv_params`, ops);
+		return this.client.post(
+			`/certificate/issued-certs/${encodeURIComponent(id)}/dcv_params`,
+			ops,
+		);
 	}
 
 	getCertificateTags(id: string) {
@@ -100,11 +103,15 @@ export class CertificatesResource {
 	}
 
 	addCertificateTag(id: string, tag: string) {
-		return this.client.post(`/certificate/issued-certs/${encodeURIComponent(id)}/tags`, { tag });
+		return this.client.post(`/certificate/issued-certs/${encodeURIComponent(id)}/tags`, {
+			tag,
+		});
 	}
 
 	replaceAllCertificateTags(id: string, tags: string[]) {
-		return this.client.put(`/certificate/issued-certs/${encodeURIComponent(id)}/tags`, { tags });
+		return this.client.put(`/certificate/issued-certs/${encodeURIComponent(id)}/tags`, {
+			tags,
+		});
 	}
 
 	updateSomeCertificateTags(id: string, add: string[], remove: string[]) {

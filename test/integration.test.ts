@@ -1,7 +1,7 @@
-import {config} from 'dotenv';
-import {afterAll, beforeAll, describe, expect, it} from 'vitest';
-import {cleanupTestResources, createTestClient, generateRandomDomain, generateTestContact} from './setup';
-import {CountryCode} from "../src";
+import { config } from 'dotenv';
+import { afterAll, beforeAll, describe, expect, it } from 'vitest';
+import { cleanupTestResources, createTestClient, generateRandomDomain, generateTestContact } from './setup';
+import { CountryCode } from "../src";
 
 config();
 
