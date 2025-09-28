@@ -1,4 +1,4 @@
-import {CountryCode} from "./src/types/Utils";
+import {CountryCode} from "./src/types/utils";
 import {Persona} from "./src/types/domainsTypes";
 
 export const OwnerData: Persona = {

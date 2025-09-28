@@ -346,7 +346,12 @@ For issues and questions:
 
 ## Changelog
 
-### v0.1.0
+### v0.1.3
+- Started Certificate management implementation
+- Renamed Utils to utils
+- Changed some functions arguments to have dryRun then sharingId everywhere
+
+### v0.1.2
 - Initial release
 - Domain management functionality
 - TypeScript support

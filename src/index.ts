@@ -1,15 +1,14 @@
-import {GandiClient} from "./client";
+import {GandiClient, GandiClientOptions} from "./client";
 import {DomainsResource} from "./resources/domains";
+import {CertificatesResource} from "./resources/certificates";
 
 export class GandiSDK {
     domains: DomainsResource;
+	certificates: CertificatesResource;
 
-    constructor(apiKey: string) {
-        const client = new GandiClient({
-            apiKey: "",
-            authMode: "pat" // default: "pat"
-        });
+    constructor(opts: GandiClientOptions) {
+        const client = new GandiClient(opts);
         this.domains = new DomainsResource(client);
-        // plus tard: this.dns = new DNSResource(client), etc.
+		this.certificates = new CertificatesResource(client);
     }
 }

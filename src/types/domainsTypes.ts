@@ -1,4 +1,4 @@
-import {CountryCode} from "./Utils";
+import {CountryCode} from "./utils";
 
 export interface ChangeOwnerPayload {
     owner: Persona;

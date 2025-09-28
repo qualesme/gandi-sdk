@@ -12,7 +12,7 @@ import {
     WebRedirectionPayload,
     WebRedirectionUpdatePayload
 } from "../types/domainsTypes";
-import {PaginationQS} from "../types/Utils";
+import {PaginationQS} from "../types/utils";
 
 export class DomainsResource {
     constructor(private client: GandiClient) {
@@ -62,7 +62,7 @@ export class DomainsResource {
         );
     }
 
-    createNewDomain(opts: CreateDomainPayload, sharingId?: any, dryRun = false) {
+    createNewDomain(opts: CreateDomainPayload, dryRun = false, sharingId?: any) {
         const params: any = {};
         const headers: any = {};
         if (sharingId) params.sharing_id = sharingId;
@@ -302,7 +302,7 @@ export class DomainsResource {
         return this.client.get(`/domain/tlds/${encodeURIComponent(tld)}`);
     }
 
-    transferDomainToGandi(opts: TransferInDomainPayload, sharingId?: any, dryRun = false) {
+    transferDomainToGandi(opts: TransferInDomainPayload, dryRun = false, sharingId?: any) {
         const params: any = {};
         const headers: any = {};
         if (sharingId) params.sharing_id = sharingId;
@@ -346,5 +346,4 @@ export class DomainsResource {
             {email},
         );
     }
-
 }
