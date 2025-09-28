@@ -11,7 +11,7 @@ export interface CertificatesFilters {
 	package?: string;
 	page?: number;
 	per_page?: number;
-	sharind_id?: string;
+	sharing_id?: string;
 	sort_by?: "created_at" | "-created_at" | "updated_at" | "-updated_at" | "started_at" | "-started_at" | "ends_at" | "-ends_at" | "subscription_ends_at" | "-subscription_ends_at";
 	status?: "pending" | "valid" | "revoked" | "replaced" | "replaced_rev" | "expired";
 }
@@ -25,4 +25,27 @@ export interface CertificatePayload {
 	dcv_method?: "email" | "dns" | "file" | "http" | "https";
 	duration?: number;
 	resellee_id?: string;
+}
+
+export interface CertificateRenewPayload {
+	csr?: string;
+	dcv_method?: string;
+	duration?: number;
+}
+
+export interface CertificateUpdatePayload {
+	altnames?: string[];
+	csr?: string;
+	dcv_method?: string;
+}
+
+export interface CertificatePackageFilters {
+	category?: string;
+	max_domains?: number;
+	min_domains?: number;
+	page?: number;
+	per_page?: number;
+	trustlogo?: boolean;
+	warranty?: number;
+	wildcard?: boolean;
 }
