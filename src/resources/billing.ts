@@ -1,9 +1,8 @@
 import { GandiClient } from '../client';
-import { BillingPayload } from "../types/billingTypes";
+import { BillingPayload } from '../types/billingTypes';
 
 export class BillingResource {
-	constructor(private client: GandiClient) {
-	}
+	constructor(private client: GandiClient) {}
 
 	getAccountInfo() {
 		return this.client.get('/billing/info');

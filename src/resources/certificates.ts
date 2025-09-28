@@ -16,7 +16,7 @@ export class CertificatesResource {
 	}
 
 	listCertificates(opts?: CertificatesFilters, getAsCsv = false) {
-		const headers = getAsCsv ? {Accept: 'text/csv'} : undefined;
+		const headers = getAsCsv ? { Accept: 'text/csv' } : undefined;
 		return this.client.get(`/certificate/issued-certs`, opts, headers);
 	}
 
@@ -86,7 +86,7 @@ export class CertificatesResource {
 		if (sharingId) params.sharing_id = sharingId;
 		return this.client.patch(
 			`/certificate/issued-certs/${encodeURIComponent(id)}/dcv`,
-			{dcv_method: method},
+			{ dcv_method: method },
 			params,
 		);
 	}
@@ -100,11 +100,11 @@ export class CertificatesResource {
 	}
 
 	addCertificateTag(id: string, tag: string) {
-		return this.client.post(`/certificate/issued-certs/${encodeURIComponent(id)}/tags`, {tag});
+		return this.client.post(`/certificate/issued-certs/${encodeURIComponent(id)}/tags`, { tag });
 	}
 
 	replaceAllCertificateTags(id: string, tags: string[]) {
-		return this.client.put(`/certificate/issued-certs/${encodeURIComponent(id)}/tags`, {tags});
+		return this.client.put(`/certificate/issued-certs/${encodeURIComponent(id)}/tags`, { tags });
 	}
 
 	updateSomeCertificateTags(id: string, add: string[], remove: string[]) {
@@ -127,7 +127,7 @@ export class CertificatesResource {
 	}
 
 	getIntermediateCertificateByFilename(filename: string, acceptPemFile = false) {
-		const headers = acceptPemFile ? {Accept: 'application/x-pem-file'} : undefined;
+		const headers = acceptPemFile ? { Accept: 'application/x-pem-file' } : undefined;
 		return this.client.get(
 			`/certificate/pem/-/${encodeURIComponent(filename)}`,
 			undefined,
@@ -138,7 +138,7 @@ export class CertificatesResource {
 	getIntermediateCertificate(type: string, provider?: string, acceptPemFile = false) {
 		const params: any = {};
 		if (provider) params.provider = provider;
-		const headers = acceptPemFile ? {Accept: 'application/x-pem-file'} : undefined;
+		const headers = acceptPemFile ? { Accept: 'application/x-pem-file' } : undefined;
 		return this.client.get(`/certificate/pem/${encodeURIComponent(type)}`, params, headers);
 	}
 }

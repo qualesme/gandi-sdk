@@ -15,8 +15,7 @@ import {
 import { PaginationQS } from '../types/utils';
 
 export class DomainsResource {
-	constructor(private client: GandiClient) {
-	}
+	constructor(private client: GandiClient) {}
 
 	changeOwner(domain: string, opts: ChangeOwnerPayload, dryRun = false, sharingId?: any) {
 		const params: any = {};
@@ -34,12 +33,12 @@ export class DomainsResource {
 	changeOwnerFollowup(domain: string, sharingId?: any) {
 		return this.client.get(
 			`/domain/changeowner/${encodeURIComponent(domain)}`,
-			sharingId ? {sharing_id: sharingId} : undefined,
+			sharingId ? { sharing_id: sharingId } : undefined,
 		);
 	}
 
 	resendOwnerChangeFOA(domain: string, email: string) {
-		return this.client.post(`/domain/changeowner/${encodeURIComponent(domain)}/foa`, {email});
+		return this.client.post(`/domain/changeowner/${encodeURIComponent(domain)}/foa`, { email });
 	}
 
 	checkDomainAvailability(opts: DomainAvailabilityPayload) {
@@ -115,7 +114,7 @@ export class DomainsResource {
 		return this.client.post(`/domain/domains/${encodeURIComponent(domain)}/dnskeys`, key);
 	}
 
-	replaceDnsKey(domain: string, opts: {keys: DnssecKeyPayload[]}) {
+	replaceDnsKey(domain: string, opts: { keys: DnssecKeyPayload[] }) {
 		return this.client.put(`/domain/domains/${encodeURIComponent(domain)}/dnskeys`, opts);
 	}
 
@@ -129,7 +128,7 @@ export class DomainsResource {
 		return this.client.get(`/domain/domains/${encodeURIComponent(domain)}/hosts`, opts);
 	}
 
-	createGlueRecord(domain: string, opts: {ips: string[]; name: string}) {
+	createGlueRecord(domain: string, opts: { ips: string[]; name: string }) {
 		return this.client.post(`/domain/domains/${encodeURIComponent(domain)}/hosts`, opts);
 	}
 
@@ -139,7 +138,7 @@ export class DomainsResource {
 		);
 	}
 
-	updateGlueRecord(domain: string, name: string, opts: {ips: string[]}) {
+	updateGlueRecord(domain: string, name: string, opts: { ips: string[] }) {
 		return this.client.put(
 			`/domain/domains/${encodeURIComponent(domain)}/hosts/${encodeURIComponent(name)}`,
 			opts,
@@ -179,7 +178,7 @@ export class DomainsResource {
 		return this.client.get(`/domain/domains/${encodeURIComponent(domain)}/nameservers`);
 	}
 
-	setNameservers(domain: string, opts: {nameservers: string[]}) {
+	setNameservers(domain: string, opts: { nameservers: string[] }) {
 		return this.client.put(`/domain/domains/${encodeURIComponent(domain)}/nameservers`, opts);
 	}
 
@@ -200,7 +199,7 @@ export class DomainsResource {
 		if (sharingId) params.sharing_id = sharingId;
 		return this.client.post(
 			`/domain/domains/${encodeURIComponent(domain)}/renewal`,
-			{duration},
+			{ duration },
 			params,
 			headers,
 		);
@@ -228,15 +227,15 @@ export class DomainsResource {
 	}
 
 	attachTagToDomain(domain: string, tag: string) {
-		return this.client.post(`/domain/domains/${encodeURIComponent(domain)}/tags`, {tag});
+		return this.client.post(`/domain/domains/${encodeURIComponent(domain)}/tags`, { tag });
 	}
 
 	updateAllTagsForDomain(domain: string, tags: string[]) {
-		return this.client.put(`/domain/domains/${encodeURIComponent(domain)}/tags`, {tags});
+		return this.client.put(`/domain/domains/${encodeURIComponent(domain)}/tags`, { tags });
 	}
 
 	updateSomeTagsForDomain(domain: string, add: string[], remove: string[]) {
-		return this.client.patch(`/domain/domains/${encodeURIComponent(domain)}/tags`, {add, remove});
+		return this.client.patch(`/domain/domains/${encodeURIComponent(domain)}/tags`, { add, remove });
 	}
 
 	removeAllTagsFromDomain(domain: string) {
@@ -283,7 +282,7 @@ export class DomainsResource {
 		);
 	}
 
-	listAvailableTlds(opts?: {category?: 'ccTLD' | 'gTLD'; page?: number; per_page?: number}) {
+	listAvailableTlds(opts?: { category?: 'ccTLD' | 'gTLD'; page?: number; per_page?: number }) {
 		return this.client.get(`/domain/tlds`, opts);
 	}
 
@@ -312,7 +311,7 @@ export class DomainsResource {
 		if (sharingId) params.sharing_id = sharingId;
 		return this.client.put(
 			`/domain/transferin/${encodeURIComponent(domain)}/authinfo`,
-			{authinfo},
+			{ authinfo },
 			params,
 		);
 	}
@@ -324,6 +323,6 @@ export class DomainsResource {
 	}
 
 	resendTransferFOA(domain: string, email: string) {
-		return this.client.post(`/domain/transferin/${encodeURIComponent(domain)}/foa`, {email});
+		return this.client.post(`/domain/transferin/${encodeURIComponent(domain)}/foa`, { email });
 	}
 }

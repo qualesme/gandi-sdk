@@ -42,7 +42,7 @@ export class GandiClient {
 		params?: Record<string, any>,
 		headers?: Record<string, string>,
 	): Promise<T> {
-		return this.http.get<T>(url, {params, headers}).then((r) => r.data);
+		return this.http.get<T>(url, { params, headers }).then((r) => r.data);
 	}
 
 	// @ts-ignore
@@ -52,7 +52,7 @@ export class GandiClient {
 		params?: Record<string, any>,
 		headers?: Record<string, string>,
 	): Promise<T> {
-		return this.http.post<T>(url, data, {params, headers}).then((r) => r.data);
+		return this.http.post<T>(url, data, { params, headers }).then((r) => r.data);
 	}
 
 	// @ts-ignore
@@ -62,7 +62,7 @@ export class GandiClient {
 		params?: Record<string, any>,
 		headers?: Record<string, string>,
 	): Promise<T> {
-		return this.http.put<T>(url, data, {params, headers}).then((r) => r.data);
+		return this.http.put<T>(url, data, { params, headers }).then((r) => r.data);
 	}
 
 	// @ts-ignore
@@ -72,7 +72,7 @@ export class GandiClient {
 		params?: Record<string, any>,
 		headers?: Record<string, string>,
 	): Promise<T> {
-		return this.http.patch<T>(url, data, {params, headers}).then((r) => r.data);
+		return this.http.patch<T>(url, data, { params, headers }).then((r) => r.data);
 	}
 
 	// @ts-ignore
@@ -81,6 +81,6 @@ export class GandiClient {
 		params?: Record<string, any>,
 		headers?: Record<string, string>,
 	): Promise<T> {
-		return this.http.delete<T>(url, {params, headers}).then((r) => r.data);
+		return this.http.delete<T>(url, { params, headers }).then((r) => r.data);
 	}
 }

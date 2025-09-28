@@ -1,13 +1,13 @@
 import { GandiClient, GandiClientOptions } from './client';
 import { DomainsResource } from './resources/domains';
 import { CertificatesResource } from './resources/certificates';
-import { BillingResource } from "./resources/billing";
+import { BillingResource } from './resources/billing';
 
 export class GandiSDK {
 	client: GandiClient;
 	domains: DomainsResource;
 	certificates: CertificatesResource;
-	billing: BillingResource
+	billing: BillingResource;
 
 	constructor(opts: GandiClientOptions) {
 		this.client = new GandiClient(opts);
