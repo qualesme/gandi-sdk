@@ -1,6 +1,6 @@
 {
     "name": "@qualesme/gandi-sdk",
-    "version": "0.1.1",
+    "version": "0.1.2",
     "description": "Unofficial TypeScript SDK for the Gandi API",
     "main": "dist/index.js",
     "types": "dist/index.d.ts",
