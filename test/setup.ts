@@ -79,7 +79,7 @@ export async function cleanupTestResources(
     domains: DomainsResource,
     certificates: CertificatesResource,
     domainName?: string,
-    certificateId?: string
+    certificateId?: string | null
 ) {
     console.log('🧹 Cleaning up test resources...');
 

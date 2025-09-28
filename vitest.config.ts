@@ -12,7 +12,6 @@ export default defineConfig({
 		exclude: ['node_modules', 'dist'],
 		testTimeout: 30000, // 30 seconds timeout for API calls
 		retry: 2, // Retry failed tests twice
-		reporter: ['verbose', 'json'],
 		outputFile: {
 			json: './test-results.json'
 		},

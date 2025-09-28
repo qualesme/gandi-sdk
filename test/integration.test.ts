@@ -72,6 +72,7 @@ describe('Full Integration Test Workflow', () => {
 					page: 1,
 					per_page: 5
 				});
+				// @ts-ignore
 				console.log('✅ Certificate packages retrieved:', packages.length, 'packages found');
 			} catch (error) {
 				console.log('⚠️  Certificate packages retrieval failed:', error.message);
@@ -128,12 +129,15 @@ describe('Full Integration Test Workflow', () => {
 				console.log('✅ Existing certificates listed:', certList);
 
 				// If we have existing certificates, test operations on them
+				// @ts-ignore
 				if (certList && certList.length > 0) {
+					// @ts-ignore
 					testCertificateId = certList[0].id;
 					console.log(`🔍 Testing operations on existing certificate: ${testCertificateId}`);
 
 					// Test certificate details
 					try {
+						// @ts-ignore
 						const certDetails = await certificates.getCertificate(testCertificateId);
 						console.log('✅ Certificate details retrieved:', certDetails);
 					} catch (error) {
@@ -142,6 +146,7 @@ describe('Full Integration Test Workflow', () => {
 
 					// Test certificate tags
 					try {
+						// @ts-ignore
 						const tags = await certificates.getCertificateTags(testCertificateId);
 						console.log('✅ Certificate tags retrieved:', tags);
 					} catch (error) {
@@ -156,14 +161,14 @@ describe('Full Integration Test Workflow', () => {
 
 			// Step 8: Test DNS management operations
 			try {
-				const nameservers = await domains.getNameservers('example.com');
+				const nameservers = await domains.getNameservers(testDomain);
 				console.log('✅ Nameservers retrieved:', nameservers);
 			} catch (error) {
 				console.log('⚠️  Nameservers retrieval failed (expected for non-owned domain):', error.message);
 			}
 
 			try {
-				const dnssec = await domains.getDNSSECWithLiveDNS('example.com');
+				const dnssec = await domains.getDNSSECWithLiveDNS(testDomain);
 				console.log('✅ DNSSEC status retrieved:', dnssec);
 			} catch (error) {
 				console.log('⚠️  DNSSEC status retrieval failed (expected for non-owned domain):', error.message);
@@ -173,14 +178,14 @@ describe('Full Integration Test Workflow', () => {
 
 			// Step 9: Test domain management operations
 			try {
-				const domainTags = await domains.getDomainTags('example.com');
+				const domainTags = await domains.getDomainTags(testDomain);
 				console.log('✅ Domain tags retrieved:', domainTags);
 			} catch (error) {
 				console.log('⚠️  Domain tags retrieval failed (expected for non-owned domain):', error.message);
 			}
 
 			try {
-				const webRedirections = await domains.listWebRedirections('example.com');
+				const webRedirections = await domains.listWebRedirections(testDomain);
 				console.log('✅ Web redirections listed:', webRedirections);
 			} catch (error) {
 				console.log('⚠️  Web redirections listing failed (expected for non-owned domain):', error.message);
