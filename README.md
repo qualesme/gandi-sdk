@@ -346,6 +346,11 @@ For issues and questions:
 
 ## Changelog
 
+### v0.1.4
+- Finished Certificate management implementation
+- Added unit tests
+- Added Billing resource (https://api.gandi.net/docs/billing/)
+
 ### v0.1.3
 - Started Certificate management implementation
 - Renamed Utils to utils
