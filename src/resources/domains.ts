@@ -294,7 +294,7 @@ export class DomainsResource {
         );
     }
 
-    listAvailableTlds(opts?: { category?: string, page?: number, per_page?: number }) {
+    listAvailableTlds(opts?: { category?: "ccTLD" | "gTLD", page?: number, per_page?: number }) {
         return this.client.get(`/domain/tlds`, opts);
     }
 
