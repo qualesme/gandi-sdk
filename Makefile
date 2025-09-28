@@ -18,6 +18,8 @@ test_integration:
 	npm run test:integration
 test_domains:
 	npm run test:domains
+test_billing:
+	npm run test:billing
 test_certificates:
 	npm run test:certificates
 test_run:

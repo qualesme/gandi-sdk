@@ -41,6 +41,7 @@ describe('Domain Management Tests', () => {
 
 			expect(tlds).toBeDefined();
 			expect(Array.isArray(tlds)).toBe(true);
+			// @ts-ignore
 			console.log('✅ TLDs listed:', tlds.length, 'TLDs found');
 		});
 
