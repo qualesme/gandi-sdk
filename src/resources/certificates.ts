@@ -1,11 +1,11 @@
-import {GandiClient} from "../client";
+import { GandiClient } from '../client';
 import {
 	CertificatePackageFilters,
 	CertificatePayload,
 	CertificateRenewPayload,
 	CertificatesFilters,
-	DCVParametersFilters
-} from "../types/certificateTypes";
+	DCVParametersFilters,
+} from '../types/certificateTypes';
 
 export class CertificatesResource {
 	constructor(private client: GandiClient) {
@@ -37,7 +37,12 @@ export class CertificatesResource {
 		const params: any = {};
 		if (dryRun) headers.dry_run = true;
 		if (sharingId) params.sharing_id = sharingId;
-		return this.client.post(`/certificate/issued-certs/${encodeURIComponent(id)}`, opts, params, headers);
+		return this.client.post(
+			`/certificate/issued-certs/${encodeURIComponent(id)}`,
+			opts,
+			params,
+			headers,
+		);
 	}
 
 	updateCertificate(id: string, opts: CertificateRenewPayload, dryRun = false, sharingId?: any) {
@@ -45,7 +50,12 @@ export class CertificatesResource {
 		const params: any = {};
 		if (dryRun) headers.dry_run = true;
 		if (sharingId) params.sharing_id = sharingId;
-		return this.client.put(`/certificate/issued-certs/${encodeURIComponent(id)}`, opts, params, headers);
+		return this.client.put(
+			`/certificate/issued-certs/${encodeURIComponent(id)}`,
+			opts,
+			params,
+			headers,
+		);
 	}
 	revokeCertificate(id: string, sharingId?: any) {
 		const params: any = {};
@@ -60,16 +70,28 @@ export class CertificatesResource {
 	resendCertificateDCV(id: string, sharingId?: any) {
 		const params: any = {};
 		if (sharingId) params.sharing_id = sharingId;
-		return this.client.put(`/certificate/issued-certs/${encodeURIComponent(id)}/dcv`, undefined, params);
+		return this.client.put(
+			`/certificate/issued-certs/${encodeURIComponent(id)}/dcv`,
+			undefined,
+			params,
+		);
 	}
 
-	updateCertificateDCVMethod(id: string, method: "email" | "dns" | "file" | "http" | "https", sharingId?: any) {
+	updateCertificateDCVMethod(
+		id: string,
+		method: 'email' | 'dns' | 'file' | 'http' | 'https',
+		sharingId?: any,
+	) {
 		const params: any = {};
 		if (sharingId) params.sharing_id = sharingId;
-		return this.client.patch(`/certificate/issued-certs/${encodeURIComponent(id)}/dcv`, {dcv_method: method}, params);
+		return this.client.patch(
+			`/certificate/issued-certs/${encodeURIComponent(id)}/dcv`,
+			{dcv_method: method},
+			params,
+		);
 	}
 
-	retrieveCertificateDCVParameters(id: string, ops: DCVParametersFilters){
+	retrieveCertificateDCVParameters(id: string, ops: DCVParametersFilters) {
 		return this.client.post(`/certificate/issued-certs/${encodeURIComponent(id)}/dcv_params`, ops);
 	}
 
@@ -86,7 +108,10 @@ export class CertificatesResource {
 	}
 
 	updateSomeCertificateTags(id: string, add: string[], remove: string[]) {
-		return this.client.patch(`/certificate/issued-certs/${encodeURIComponent(id)}/tags`, {add, remove});
+		return this.client.patch(`/certificate/issued-certs/${encodeURIComponent(id)}/tags`, {
+			add,
+			remove,
+		});
 	}
 
 	removeAllCertificateTags(id: string) {
@@ -103,7 +128,11 @@ export class CertificatesResource {
 
 	getIntermediateCertificateByFilename(filename: string, acceptPemFile = false) {
 		const headers = acceptPemFile ? {Accept: 'application/x-pem-file'} : undefined;
-		return this.client.get(`/certificate/pem/-/${encodeURIComponent(filename)}`, undefined, headers);
+		return this.client.get(
+			`/certificate/pem/-/${encodeURIComponent(filename)}`,
+			undefined,
+			headers,
+		);
 	}
 
 	getIntermediateCertificate(type: string, provider?: string, acceptPemFile = false) {
