@@ -37,3 +37,8 @@ publish:
 	npm publish --access public
 
 release: prepublishOnly build publish
+
+wc:
+	wc -l test/*.ts src/*.ts src/**/*.ts
+wcall:
+	wc -l ./*.{ts,ts,md} src/*.{ts,ts} src/*/*.{ts,ts}
