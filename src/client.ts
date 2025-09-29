@@ -1,39 +1,12 @@
-import axios, { AxiosInstance } from 'axios';
+import { HttpClient } from "@qualesme/http-core";
 
 export type AuthMode = 'apiKey' | 'pat';
 
-export interface GandiClientOptions {
-	baseURL?: string;
-	apiKey?: string;
-	pat?: string;
-	authMode?: AuthMode; // default: "pat"
-}
-
 export class GandiClient {
-	private http: AxiosInstance;
+	private http: HttpClient;
 
-	constructor(opts: GandiClientOptions) {
-		const baseURL = opts.baseURL ?? 'https://api.gandi.net/v5';
-
-		// Choix du header selon mode
-		let authHeader: string | undefined;
-		if (opts.authMode === 'apiKey' && opts.apiKey) {
-			authHeader = `Apikey ${opts.apiKey}`;
-		} else if (opts.pat) {
-			authHeader = `Bearer ${opts.pat}`;
-		} else {
-			throw new Error(
-				'GandiClient requires either an apiKey (authMode=apiKey) or a pat (authMode=pat).',
-			);
-		}
-
-		this.http = axios.create({
-			baseURL,
-			headers: {
-				Authorization: authHeader,
-				'Content-Type': 'application/json',
-			},
-		});
+	constructor(http: HttpClient) {
+		this.http = http;
 	}
 
 	// @ts-ignore
@@ -42,7 +15,7 @@ export class GandiClient {
 		params?: Record<string, any>,
 		headers?: Record<string, string>,
 	): Promise<T> {
-		return this.http.get<T>(url, { params, headers }).then((r) => r.data);
+		return this.http.get(url, { params, headers }).then((r) => r.data);
 	}
 
 	// @ts-ignore
@@ -52,7 +25,7 @@ export class GandiClient {
 		params?: Record<string, any>,
 		headers?: Record<string, string>,
 	): Promise<T> {
-		return this.http.post<T>(url, data, { params, headers }).then((r) => r.data);
+		return this.http.post(url, data, { params, headers }).then((r) => r.data);
 	}
 
 	// @ts-ignore
@@ -62,7 +35,7 @@ export class GandiClient {
 		params?: Record<string, any>,
 		headers?: Record<string, string>,
 	): Promise<T> {
-		return this.http.put<T>(url, data, { params, headers }).then((r) => r.data);
+		return this.http.put(url, data, { params, headers }).then((r) => r.data);
 	}
 
 	// @ts-ignore
@@ -72,7 +45,7 @@ export class GandiClient {
 		params?: Record<string, any>,
 		headers?: Record<string, string>,
 	): Promise<T> {
-		return this.http.patch<T>(url, data, { params, headers }).then((r) => r.data);
+		return this.http.patch(url, data, { params, headers }).then((r) => r.data);
 	}
 
 	// @ts-ignore
@@ -81,6 +54,6 @@ export class GandiClient {
 		params?: Record<string, any>,
 		headers?: Record<string, string>,
 	): Promise<T> {
-		return this.http.delete<T>(url, { params, headers }).then((r) => r.data);
+		return this.http.delete(url, { params, headers }).then((r) => r.data);
 	}
 }

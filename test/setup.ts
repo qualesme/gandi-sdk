@@ -1,5 +1,6 @@
 import {config} from 'dotenv';
 import {CertificatesResource, CountryCode, DomainsResource, GandiSDK} from "../src";
+import { AxiosAdapter } from '@qualesme/http-axios';
 
 // Load environment variables from .env file
 config();
@@ -31,11 +32,15 @@ export function createTestClient() {
         throw new Error('Please set GANDI_PAT or GANDI_API_KEY environment variable');
     }
 
-    const sdk = new GandiSDK({
-        baseURL: TEST_CONFIG.baseURL,
-        authMode: TEST_CONFIG.pat ? 'pat' : 'apiKey',
-        ...(TEST_CONFIG.pat ? {pat: TEST_CONFIG.pat} : {apiKey: TEST_CONFIG.apiKey}),
-    })
+	const http = new AxiosAdapter({
+		baseURL: TEST_CONFIG.baseURL,
+		defaultHeaders: {
+			"Authorization": "Bearer " + TEST_CONFIG.pat,
+		},
+		timeoutMs: 30000,
+	});
+
+    const sdk = new GandiSDK(http);
 
     return {
         sdk,

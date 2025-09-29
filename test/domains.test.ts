@@ -83,7 +83,7 @@ describe('Domain Management Tests', () => {
 					console.log('✅ Domain details retrieved:', details);
 					break; // ✅ succès, on sort
 				} catch (error: any) {
-					if (error?.response?.status === 404) {
+					if (error?.response?.status === 404 || error.message == 'HTTP 404') {
 						console.log('⏳  Got 404, retrying in 5s...');
 						await new Promise((resolve) => setTimeout(resolve, 5000));
 						continue; // ↩️ boucle

@@ -1,7 +1,8 @@
-import { GandiClient, GandiClientOptions } from './client';
+import { GandiClient } from './client';
 import { DomainsResource } from './resources/domains';
 import { CertificatesResource } from './resources/certificates';
 import { BillingResource } from './resources/billing';
+import { HttpClient } from "@qualesme/http-core";
 
 export class GandiSDK {
 	client: GandiClient;
@@ -9,15 +10,15 @@ export class GandiSDK {
 	certificates: CertificatesResource;
 	billing: BillingResource;
 
-	constructor(opts: GandiClientOptions) {
-		this.client = new GandiClient(opts);
+	constructor(http: HttpClient) {
+		this.client = new GandiClient(http);
 		this.domains = new DomainsResource(this.client);
 		this.certificates = new CertificatesResource(this.client);
 		this.billing = new BillingResource(this.client);
 	}
 }
 
-export { GandiClient, GandiClientOptions };
+export { GandiClient };
 export { DomainsResource } from './resources/domains';
 export { CertificatesResource } from './resources/certificates';
 export * from './types/certificateTypes';

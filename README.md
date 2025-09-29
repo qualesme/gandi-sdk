@@ -26,19 +26,21 @@ npm install @qualesme/gandi-sdk
 
 ```typescript
 import { GandiClient, DomainsResource } from '@qualesme/gandi-sdk';
+import { AxiosAdapter } from '@qualesme/http-axios';
 
 // Initialize the client with your API key or PAT
-const client = new GandiClient({
-  baseURL: "https://api.gandi.net/v5",
-  authMode: "pat",
-  pat: "your-personal-access-token"
+const http = new AxiosAdapter({
+	baseURL: "https://api.gandi.net/v5",
+	defaultHeaders: {
+		"Authorization": "Bearer your-personal-access-token",
+	},
+	timeoutMs: 30000,
 });
 
-// Create domains resource
-const domains = new DomainsResource(client);
+const sdk = new GandiSDK(http);
 
 // List your domains
-const domainList = await domains.listDomains({
+const domainList = await sdk.domains.listDomains({
   page: 1,
   per_page: 10
 });
@@ -46,48 +48,21 @@ const domainList = await domains.listDomains({
 console.log(domainList);
 ```
 
-## Authentication
-
-The SDK supports two authentication methods:
-
-### API Key Authentication
-```typescript
-import { GandiClient, DomainsResource } from '@qualesme/gandi-sdk';
-
-const client = new GandiClient({
-  baseURL: "https://api.gandi.net/v5",
-  authMode: "apiKey",
-  apiKey: "your-api-key"
-});
-
-const domains = new DomainsResource(client);
-```
-
-### Personal Access Token (PAT) Authentication
-```typescript
-import { GandiClient, DomainsResource } from '@qualesme/gandi-sdk';
-
-const client = new GandiClient({
-  baseURL: "https://api.gandi.net/v5",
-  authMode: "pat",
-  pat: "your-personal-access-token"
-});
-
-const domains = new DomainsResource(client);
-```
-
 ### Sandbox Environment
 ```typescript
 import { GandiClient, DomainsResource } from '@qualesme/gandi-sdk';
+import { AxiosAdapter } from '@qualesme/http-axios';
 
-// For testing with Gandi's sandbox environment
-const client = new GandiClient({
-  baseURL: "https://api.sandbox.gandi.net/v5",
-  authMode: "pat",
-  pat: "your-sandbox-pat"
+// Initialize the client with your API key or PAT
+const http = new AxiosAdapter({
+	baseURL: "https://api.sandbox.gandi.net/v5",
+	defaultHeaders: {
+		"Authorization": "Bearer your-personal-access-token",
+	},
+	timeoutMs: 30000,
 });
 
-const domains = new DomainsResource(client);
+const sdk = new GandiSDK(http);
 ```
 
 ## API Reference
@@ -97,19 +72,19 @@ const domains = new DomainsResource(client);
 #### List Domains
 ```typescript
 // Get all domains
-const domains = await domains.listDomains({
+const domains = await sdk.domains.listDomains({
   page: 1,
   per_page: 50,
   tld: 'com'
 });
 
 // Get domains as CSV
-const csvData = await domains.listDomains({}, true);
+const csvData = await sdk.domains.listDomains({}, true);
 ```
 
 #### Check Domain Availability
 ```typescript
-const availability = await domains.checkDomainAvailability({
+const availability = await sdk.domains.checkDomainAvailability({
   name: 'example.com',
   country: 'US'
 });
@@ -117,7 +92,7 @@ const availability = await domains.checkDomainAvailability({
 
 #### Create Domain
 ```typescript
-const newDomain = await domains.createNewDomain({
+const newDomain = await sdk.domains.createNewDomain({
   fqdn: 'example.com',
   owner: {
     country: 'US',
@@ -133,12 +108,12 @@ const newDomain = await domains.createNewDomain({
 
 #### Get Domain Information
 ```typescript
-const domain = await domains.getDomain('example.com');
+const domain = await sdk.domains.getDomain('example.com');
 ```
 
 #### Update Domain Contacts
 ```typescript
-await domains.updateDomainContacts('example.com', {
+await sdk.domains.updateDomainContacts('example.com', {
   owner: {
     country: 'US',
     email: 'newowner@example.com',
@@ -153,16 +128,16 @@ await domains.updateDomainContacts('example.com', {
 #### Domain Renewal
 ```typescript
 // Get renewal information
-const renewalInfo = await domains.getDomainRenewalInfo('example.com');
+const renewalInfo = await sdk.domains.getDomainRenewalInfo('example.com');
 
 // Renew domain
-await domains.renewDomain('example.com', 1); // 1 year renewal
+await sdk.domains.renewDomain('example.com', 1); // 1 year renewal
 ```
 
 #### Auto-renewal Management
 ```typescript
 // Enable auto-renewal
-await domains.editAutoRenew('example.com', {
+await sdk.domains.editAutoRenew('example.com', {
   enabled: true,
   duration: 1
 });
@@ -173,22 +148,22 @@ await domains.editAutoRenew('example.com', {
 #### DNSSEC Management
 ```typescript
 // Get DNSSEC status
-const dnssec = await domains.getDNSSECWithLiveDNS('example.com');
+const dnssec = await sdk.domains.getDNSSECWithLiveDNS('example.com');
 
 // Activate DNSSEC
-await domains.activateDNSSECWithLiveDNS('example.com');
+await sdk.domains.activateDNSSECWithLiveDNS('example.com');
 
 // Deactivate DNSSEC
-await domains.disableDNSSECWithLiveDNS('example.com');
+await sdk.domains.disableDNSSECWithLiveDNS('example.com');
 ```
 
 #### Nameserver Management
 ```typescript
 // Get current nameservers
-const nameservers = await domains.getNameservers('example.com');
+const nameservers = await sdk.domains.getNameservers('example.com');
 
 // Set nameservers
-await domains.setNameservers('example.com', {
+await sdk.domains.setNameservers('example.com', {
   nameservers: ['ns1.example.com', 'ns2.example.com']
 });
 ```
@@ -197,7 +172,7 @@ await domains.setNameservers('example.com', {
 
 #### Transfer Domain to Gandi
 ```typescript
-const transfer = await domains.transferDomainToGandi({
+const transfer = await sdk.domains.transferDomainToGandi({
   fqdn: 'example.com',
   owner: {
     country: 'US',
@@ -213,7 +188,7 @@ const transfer = await domains.transferDomainToGandi({
 
 #### Check Transfer Availability
 ```typescript
-const availability = await domains.checkTransferAvailability(
+const availability = await sdk.domains.checkTransferAvailability(
   'example.com',
   'your-auth-code'
 );
@@ -223,12 +198,12 @@ const availability = await domains.checkTransferAvailability(
 
 #### List Web Redirections
 ```typescript
-const redirections = await domains.listWebRedirections('example.com');
+const redirections = await sdk.domains.listWebRedirections('example.com');
 ```
 
 #### Create Web Redirection
 ```typescript
-await domains.createWebRedirection('example.com', {
+await sdk.domains.createWebRedirection('example.com', {
   host: 'www',
   type: 'http301',
   url: 'https://example.com',
@@ -242,23 +217,23 @@ await domains.createWebRedirection('example.com', {
 #### Manage Domain Tags
 ```typescript
 // Get domain tags
-const tags = await domains.getDomainTags('example.com');
+const tags = await sdk.domains.getDomainTags('example.com');
 
 // Add tag to domain
-await domains.attachTagToDomain('example.com', 'production');
+await sdk.domains.attachTagToDomain('example.com', 'production');
 
 // Update all tags
-await domains.updateAllTagsForDomain('example.com', ['production', 'important']);
+await sdk.domains.updateAllTagsForDomain('example.com', ['production', 'important']);
 
 // Update some tags
-await domains.updateSomeTagsForDomain('example.com', ['new-tag'], ['old-tag']);
+await sdk.domains.updateSomeTagsForDomain('example.com', ['new-tag'], ['old-tag']);
 ```
 
 ### TLD Information
 
 #### List Available TLDs
 ```typescript
-const tlds = await domains.listAvailableTlds({
+const tlds = await sdk.domains.listAvailableTlds({
   category: 'generic',
   page: 1,
   per_page: 20
@@ -267,7 +242,7 @@ const tlds = await domains.listAvailableTlds({
 
 #### Get TLD Information
 ```typescript
-const tldInfo = await domains.getTldInfo('com');
+const tldInfo = await sdk.domains.getTldInfo('com');
 ```
 
 ## Error Handling
@@ -276,7 +251,7 @@ The SDK uses axios for HTTP requests, so errors are thrown as axios error object
 
 ```typescript
 try {
-  const domain = await domains.getDomain('example.com');
+  const domain = await sdk.domains.getDomain('example.com');
 } catch (error) {
   if (error.response) {
     // Server responded with error status
@@ -345,6 +320,9 @@ For issues and questions:
 - 📖 [Gandi API Documentation](https://api.gandi.net/docs/)
 
 ## Changelog
+
+### v0.1.5
+- Now using @qualesme/http-core as HTTP client ([core](https://www.npmjs.com/package/@qualesme/http-core) | [axios](https://www.npmjs.com/package/@qualesme/http-axios) | [n8n](https://www.npmjs.com/package/@qualesme/http-n8n))
 
 ### v0.1.4
 - Finished Certificate management implementation
