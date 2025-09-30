@@ -2,7 +2,7 @@ import { GandiClient } from './client';
 import { DomainsResource } from './resources/domains';
 import { CertificatesResource } from './resources/certificates';
 import { BillingResource } from './resources/billing';
-import { HttpClient } from "@qualesme/http-core";
+import { HttpClient } from '@qualesme/http-core';
 
 export class GandiSDK {
 	client: GandiClient;
@@ -19,8 +19,10 @@ export class GandiSDK {
 }
 
 export { GandiClient };
-export { DomainsResource } from './resources/domains';
-export { CertificatesResource } from './resources/certificates';
+export * from './resources/domains';
+export * from './resources/certificates';
 export * from './types/certificateTypes';
 export * from './types/domainsTypes';
 export * from './types/utils';
+export * from './resources/billing';
+export * from './types/billingTypes';

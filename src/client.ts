@@ -1,4 +1,4 @@
-import { HttpClient } from "@qualesme/http-core";
+import { HttpClient } from '@qualesme/http-core';
 
 export type AuthMode = 'apiKey' | 'pat';
 
