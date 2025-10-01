@@ -3,8 +3,8 @@ import {
 	DomainsFilters,
 	LinkedZoneFilters,
 	LinkedZonePayload,
-	UpdateLinkedZonePayload
-} from "../types/linkedZoneTypes";
+	UpdateLinkedZonePayload,
+} from '../types/linkedZoneTypes';
 
 export class LinkedZoneResource {
 	constructor(private client: GandiClient) {}
@@ -46,7 +46,7 @@ export class LinkedZoneResource {
 	}
 
 	deployUndeployZone(zoneId: string, deploy: boolean) {
-		return this.client.post(`/linkedzone/zones/${encodeURIComponent(zoneId)}`, { deploy })
+		return this.client.post(`/linkedzone/zones/${encodeURIComponent(zoneId)}`, { deploy });
 	}
 
 	deployZone(zoneId: string) {
@@ -66,6 +66,8 @@ export class LinkedZoneResource {
 	}
 
 	linkDomainToZone(zoneId: string, domains: string[]) {
-		return this.client.patch(`/linkedzone/zones/${encodeURIComponent(zoneId)}/link/domains`, { domains });
+		return this.client.patch(`/linkedzone/zones/${encodeURIComponent(zoneId)}/link/domains`, {
+			domains,
+		});
 	}
 }
