@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest';
+// @ts-ignore
 import { createTestClient } from './setup';
 
 describe('Billing API Tests', () => {

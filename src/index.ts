@@ -3,18 +3,21 @@ import { DomainsResource } from './resources/domains';
 import { CertificatesResource } from './resources/certificates';
 import { BillingResource } from './resources/billing';
 import { HttpClient } from '@qualesme/http-core';
+import { LinkedZoneResource } from "./resources/linkedZone";
 
 export class GandiSDK {
 	client: GandiClient;
 	domains: DomainsResource;
 	certificates: CertificatesResource;
 	billing: BillingResource;
+	linkedZone: LinkedZoneResource;
 
 	constructor(http: HttpClient) {
 		this.client = new GandiClient(http);
 		this.domains = new DomainsResource(this.client);
 		this.certificates = new CertificatesResource(this.client);
 		this.billing = new BillingResource(this.client);
+		this.linkedZone = new LinkedZoneResource(this.client);
 	}
 }
 
@@ -26,3 +29,5 @@ export * from './types/domainsTypes';
 export * from './types/utils';
 export * from './resources/billing';
 export * from './types/billingTypes';
+export * from "./resources/linkedZone";
+export * from "./types/linkedZoneTypes";

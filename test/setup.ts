@@ -44,10 +44,7 @@ export function createTestClient() {
 
     return {
         sdk,
-        client: sdk.client,
-        domains: sdk.domains,
-        certificates: sdk.certificates,
-		billing: sdk.billing,
+        ...sdk
     };
 }
 

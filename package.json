@@ -17,6 +17,7 @@
         "test:domains": "vitest run test/domains.test.ts",
         "test:billing": "vitest run test/billing.test.ts",
         "test:certificates": "vitest run test/certificates.test.ts",
+        "test:linkedzones": "vitest run test/linkedZones.test.ts",
         "test:run": "npx ts-node test/run-tests.ts",
         "prepublishOnly": "npm run build && npm run lint -c .eslintrc.prepublish.js src package.json"
     },

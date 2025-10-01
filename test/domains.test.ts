@@ -1,4 +1,5 @@
 import {afterAll, beforeAll, describe, expect, it} from 'vitest';
+// @ts-ignore
 import {cleanupTestResources, createTestClient, generateRandomDomain, generateTestContact} from './setup';
 import {CountryCode} from "../src";
 
